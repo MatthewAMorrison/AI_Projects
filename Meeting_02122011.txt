@@ -42,7 +42,7 @@ Main:
     Update Best.prevVisited
   }
 
-
+g
 Pseudo-Code from Wikipedia
 function A*(start,goal)
      closedset := the empty set                 // The set of nodes already evaluated.     
