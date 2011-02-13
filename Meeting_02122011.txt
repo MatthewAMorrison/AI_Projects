@@ -28,6 +28,20 @@ List alternatives
 Pick Best Option
 ---
 
+Our Pseudo Code
+Main:
+  Read in files
+  Create List Array[] for cities
+  Read In: Start, End, Exclude
+
+  while(Best != end && ListPossible != empty){
+    Best <- ComparePossible
+    RemoveFromPossible(Best)
+    List <- ListPossible(Best)
+    Update Best.previousCity
+    Update Best.prevVisited
+  }
+
 
 Pseudo-Code from Wikipedia
 function A*(start,goal)
