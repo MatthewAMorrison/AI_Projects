@@ -11,7 +11,7 @@ namespace AStar
         public string Name { get; set; }
         public int x { get; set; }
         public int y { get; set; }
-        List<City> connections { get; set; }
+        List<City> connections = new List<City>();
         bool prevVisited { get; set; }
         City prevCity { get; set; }
 
@@ -32,6 +32,11 @@ namespace AStar
         public bool isVisited()
         {
             return this.prevVisited;
+        }
+
+        public void addConnection(City theCity)
+        {
+            connections.Add(theCity);
         }
     }
 }
