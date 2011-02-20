@@ -43,6 +43,7 @@ namespace AStar
 
             /* Initialize Best City */
             City Best = new City();
+            Best.Name = "";
 
             /* Read In: Start, End, Exclude */
             getUserInput();
@@ -348,7 +349,9 @@ namespace AStar
         * *************************************/
         public static void initializePossibleList()
         {
+            TR_output.WriteLine("Initial Possible Cities: ");
             int originNumber = 0;
+            
             for (int i = 0; i < allCities.Count; i++)
             {
                 if (allCities[i].Name.CompareTo(origin) == 0)
@@ -357,15 +360,23 @@ namespace AStar
                     break;
                 }
             }
-
-            for (int i = 0; i < allCities[originNumber].getConnectionTotal(); i++)
+            
+            for (int j = 0; j < allCities[originNumber].getConnectionTotal(); j++)
             {
-                for(int j = 0; j < excludeCities.Count; j++){
-
-                    if (allCities[originNumber].getConnectionName(i).CompareTo(excludeCities[j]) != 0)
+                bool check = false;
+                for(int k = 0; k < excludeCities.Count; k++){
+                    
+                    if (allCities[originNumber].getConnectionName(j).CompareTo(excludeCities[k]) != 0)
                     {
-                        possibleCities.Add(allCities[originNumber].getConnection(i));
+                        check = true;
                     }
+                    
+                }
+                if(check){
+
+                    City tempCity = allCities[originNumber].getConnection(j);
+                    TR_output.WriteLine(tempCity.Name + " " + tempCity.x + " " + tempCity.y);
+                    //possibleCities.Add(tempCity);
                 }
             }
         }
