@@ -51,8 +51,20 @@ namespace AStar
             /* Initialize Possible List */
             initializePossibleList();
 
-            /* while(Best != end && ListPossible != empty){ */
+            int estimate = 0;
+            for (int k = 0; k < allCities.Count; k++)
+            {
+                if (allCities[k].Name.CompareTo(origin) == 0)
+                {
+                    estimate = CalculateEstimate(allCities[k]);
+                    break;
+                }
+            }
 
+            /* Print Initial Estimate to the User */
+            TR_output.WriteLine("Initial Estimate: " + estimate);
+
+            /* while(Best != end && ListPossible != empty){ */
             while (Best.Name.CompareTo(destination) != 0 && possibleCities.Count != 0)
             {
                 Best = ComparePossibilities();
@@ -393,9 +405,9 @@ namespace AStar
         * Return the numerical distance between
         * City A and City B as a double
         * *************************************/
-        public double Distance(City A, City B)
+        public static double Distance(City A, City B)
         {
-            return Math.Sqrt((B.x - A.x) ^ 2 + (B.y - A.y) ^ 2);
+            return Math.Sqrt((B.x - A.x)*(B.x - A.x) + (B.y - A.y)*(B.y - A.y));
         }
 
         /***************************************
@@ -434,6 +446,10 @@ namespace AStar
          * *************************************/
         public static City ComparePossibilities()
         {
+            int place = 0;
+            for (int i = 0; i < possibleCities.Count; i++)
+            {
+            }
             return new City();
         }
 
@@ -446,9 +462,18 @@ namespace AStar
          * Calculates the Estimate between the passed
          * City and the 
          * *************************************/
-        public int CalculateEstimate(City theCity, int distance)
+        public static int CalculateEstimate(City theCity)
         {
-            return 1;
+            int i = 0;
+            for (i = 0; i < allCities.Count; i++)
+            {
+                if (allCities[i].Name.CompareTo(destination) == 0)
+                {
+                    break;
+                }
+            }
+
+            return (int)Distance(theCity, allCities[i]);
         }
     }
 }
