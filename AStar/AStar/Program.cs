@@ -50,13 +50,15 @@ namespace AStar
             /* Initialize Possible List */
             initializePossibleList();
 
-            // while(Best != end && ListPossible != empty){
-                    //Best <- ComparePossible
-                    //RemoveFromPossible(Best)
-                    //List <- ListPossible(Best)
-                    //Update Best.previousCity
-                    //Update Best.prevVisited
-            //}
+            /* while(Best != end && ListPossible != empty){ */
+            while (Best.Name.CompareTo(destination) != 0 && possibleCities.Count != 0)
+            {
+                //Best <- ComparePossible
+                //RemoveFromPossible(Best)
+                //List <- ListPossible(Best)
+                //Update Best.previousCity
+                //Update Best.prevVisited
+            }
 
             TR_output.Close();
            
@@ -68,7 +70,7 @@ namespace AStar
         * Post-Condition: void
         * 
         * Reads the file from StreamReader and
-        * add them locations to allCities
+        * add the locations to allCities
         * *************************************/
         public static void getLocations(TextReader locations)
         {
@@ -135,12 +137,12 @@ namespace AStar
         }
 
         /***************************************
-         * Function Name: getLocations
+         * Function Name: getCommecntions
          * Pre-Conditions: StreamReader locations
          * Post-Condition: void
          * 
          * Reads the file from StreamReader and
-         * add them locations to allCities
+         * add the connections to existing allCities
          * *************************************/
         public static void getConnections(TextReader connections)
         {
