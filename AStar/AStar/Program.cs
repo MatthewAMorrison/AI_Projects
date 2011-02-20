@@ -55,6 +55,7 @@ namespace AStar
 
             while (Best.Name.CompareTo(destination) != 0 && possibleCities.Count != 0)
             {
+                Best = ComparePossibilities();
                 //Best <- ComparePossible
                 //RemoveFromPossible(Best)
                 //List <- ListPossible(Best)
@@ -140,7 +141,7 @@ namespace AStar
         }
 
         /***************************************
-         * Function Name: getCommecntions
+         * Function Name: getConnecntions
          * Pre-Conditions: StreamReader locations
          * Post-Condition: void
          * 
@@ -431,7 +432,7 @@ namespace AStar
          * A* algorithm to choose. Removes that city
          * from the list, and returns the best city
          * *************************************/
-        public City ComparePossibilities(List<City> Possible, int distance)
+        public static City ComparePossibilities()
         {
             return new City();
         }
