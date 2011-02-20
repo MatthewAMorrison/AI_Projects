@@ -52,6 +52,7 @@ namespace AStar
             initializePossibleList();
 
             /* while(Best != end && ListPossible != empty){ */
+
             while (Best.Name.CompareTo(destination) != 0 && possibleCities.Count != 0)
             {
                 //Best <- ComparePossible
@@ -59,6 +60,7 @@ namespace AStar
                 //List <- ListPossible(Best)
                 //Update Best.previousCity
                 //Update Best.prevVisited
+                Best.Name = destination;
             }
 
             TR_output.Close();
@@ -363,12 +365,13 @@ namespace AStar
             
             for (int j = 0; j < allCities[originNumber].getConnectionTotal(); j++)
             {
-                bool check = false;
+                bool check = true;
                 for(int k = 0; k < excludeCities.Count; k++){
                     
-                    if (allCities[originNumber].getConnectionName(j).CompareTo(excludeCities[k]) != 0)
+                    if (allCities[originNumber].getConnectionName(j).CompareTo(excludeCities[k]) == 0)
                     {
-                        check = true;
+                        check = false;
+                        break;
                     }
                     
                 }
@@ -376,7 +379,7 @@ namespace AStar
 
                     City tempCity = allCities[originNumber].getConnection(j);
                     TR_output.WriteLine(tempCity.Name + " " + tempCity.x + " " + tempCity.y);
-                    //possibleCities.Add(tempCity);
+                    possibleCities.Add(tempCity);
                 }
             }
         }
