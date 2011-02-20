@@ -60,7 +60,7 @@ namespace AStar
                 //List <- ListPossible(Best)
                 //Update Best.previousCity
                 //Update Best.prevVisited
-                Best.Name = destination;
+                Best.Name = destination; // This is here to break the while loop until we finish the algorithm
             }
 
             TR_output.Close();
