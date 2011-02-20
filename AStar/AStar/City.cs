@@ -48,5 +48,10 @@ namespace AStar
         {
             return connections[i].Name;
         }
+
+        public City getConnection(int i)
+        {
+            return connections[i];
+        }
     }
 }

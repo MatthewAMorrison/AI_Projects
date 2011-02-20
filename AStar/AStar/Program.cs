@@ -12,6 +12,9 @@ namespace AStar
         /* List of all cities in the file */
         public static List<City> allCities = new List<City>();
 
+        /* List of Possible Cities */
+        public static List<City> possibleCities = new List<City>();
+
         /* Output File */
         public static TextWriter TR_output = File.CreateText("output.txt");
 
@@ -41,12 +44,11 @@ namespace AStar
             /* Initialize Best City */
             City Best = new City();
 
-            /* Get User Input */
+            /* Read In: Start, End, Exclude */
             getUserInput();
 
-            //Read in files
-            // Create List Array[] for cities
-            //Read In: Start, End, Exclude
+            /* Initialize Possible List */
+            initializePossibleList();
 
             // while(Best != end && ListPossible != empty){
                     //Best <- ComparePossible
@@ -255,7 +257,12 @@ namespace AStar
                 TR_output.WriteLine(destination);
                 for (int i = 0; i < allCities.Count; i++)
                 {
-                    if (allCities[i].Name.CompareTo(destination) == 0)
+                    if (origin.CompareTo(destination) == 0 && allCities[i].Name.CompareTo(destination) == 0)
+                    {
+                        TR_output.WriteLine(destination + " is the origin city");
+                        Console.WriteLine(destination + " is the origin city");
+                    }
+                    else if (allCities[i].Name.CompareTo(destination) == 0)
                     {
                         destinationCheck = true;
                     }
@@ -327,6 +334,38 @@ namespace AStar
             }
             TR_output.WriteLine();
             TR_output.WriteLine("----------------------------------");
+        }
+
+        /***************************************
+        * Function Name: initializePossibleList
+        * Pre-Conditions: void
+        * Post-Condition: void
+        * 
+        * Initializes the possible city list
+        * based on user input
+        * *************************************/
+        public static void initializePossibleList()
+        {
+            int originNumber = 0;
+            for (int i = 0; i < allCities.Count; i++)
+            {
+                if (allCities[i].Name.CompareTo(origin) == 0)
+                {
+                    originNumber = i;
+                    break;
+                }
+            }
+
+            for (int i = 0; i < allCities[originNumber].getConnectionTotal(); i++)
+            {
+                for(int j = 0; j < excludeCities.Count; j++){
+
+                    if (allCities[originNumber].getConnectionName(i).CompareTo(excludeCities[j]) != 0)
+                    {
+                        possibleCities.Add(allCities[originNumber].getConnection(i));
+                    }
+                }
+            }
         }
 
         /***************************************
