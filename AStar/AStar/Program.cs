@@ -221,14 +221,17 @@ namespace AStar
         * *************************************/
         public static void getUserInput()
         {
+            TR_output.WriteLine("---------------------------------");
             bool originCheck = false;
             bool destinationCheck = false;
             bool excludeCheck = false;
 
             while (!originCheck)
             {
+                TR_output.WriteLine("Input Origin City");
                 Console.WriteLine("Input Origin City");
                 origin = Console.ReadLine();
+                TR_output.WriteLine(origin);
 
                 for (int i = 0; i < allCities.Count; i++)
                 {
@@ -239,6 +242,7 @@ namespace AStar
                 }
                 if (!originCheck)
                 {
+                    TR_output.WriteLine(origin + " is not a valid city");
                     Console.WriteLine(origin + " is not a valid city");
                 }
             }
@@ -246,8 +250,9 @@ namespace AStar
             while (!destinationCheck)
             {
                 Console.WriteLine("Input Destination City");
+                TR_output.WriteLine("Input Destination City");
                 destination = Console.ReadLine();
-
+                TR_output.WriteLine(destination);
                 for (int i = 0; i < allCities.Count; i++)
                 {
                     if (allCities[i].Name.CompareTo(destination) == 0)
@@ -257,6 +262,7 @@ namespace AStar
                 }
                 if (!destinationCheck)
                 {
+                    TR_output.WriteLine(destination + " is not a valid city");
                     Console.WriteLine(destination + " is not a valid city");
                 }
             }
@@ -264,7 +270,9 @@ namespace AStar
             while (!excludeCheck)
             {
                 Console.WriteLine("Input Excluded Cities or END");
+                TR_output.WriteLine("Input Excluded Cities or END");
                 string tempExclude = Console.ReadLine();
+                TR_output.WriteLine(tempExclude);
 
                 bool validCheck = false;
 
@@ -278,11 +286,13 @@ namespace AStar
                     {
                         if (tempExclude.CompareTo(origin) == 0)
                         {
+                            TR_output.WriteLine(tempExclude + " is your selected origin city");
                             Console.WriteLine(tempExclude + " is your selected origin city");
                             break;
                         }
                         else if (tempExclude.CompareTo(destination) == 0)
                         {
+                            TR_output.WriteLine(tempExclude + " is your selected destination city");
                             Console.WriteLine(tempExclude + " is your selected destination city");
                             break;
                         }
@@ -294,6 +304,7 @@ namespace AStar
                     }
                     if (!validCheck)
                     {
+                        TR_output.WriteLine(tempExclude + " is not a valid city");
                         Console.WriteLine(tempExclude + " is not a valid city");
                     }
                     else

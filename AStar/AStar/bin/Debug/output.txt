@@ -175,6 +175,37 @@ Connections: G4 G2b E5
 City Name: G5
 x: 797 y: 573
 Connections: F5 G4
+---------------------------------
+Input Origin City
+A3
+A3 is not a valid city
+Input Origin City
+A1
+Input Destination City
+A3
+A3 is not a valid city
+Input Destination City
+Q2
+Q2 is not a valid city
+Input Destination City
+A2
+Input Excluded Cities or END
+A3
+A3 is not a valid city
+Input Excluded Cities or END
+A1
+A1 is your selected origin city
+A1 is not a valid city
+Input Excluded Cities or END
+A2
+A2 is your selected destination city
+A2 is not a valid city
+Input Excluded Cities or END
+A4
+Input Excluded Cities or END
+A5
+Input Excluded Cities or END
+END
 ----------------------------------
 User Inputs:
 Origin: A1
