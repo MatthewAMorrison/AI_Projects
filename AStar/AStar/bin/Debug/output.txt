@@ -1,0 +1,177 @@
+Welcome to the Solver
+Reading in locations...
+A5 30 573
+A4 30 483
+A2 30 178
+A1 30 48
+B1 207 48
+B2 207 161
+B3 144 339
+B4 129 443
+B5 127 479
+C2 258 162
+C3 240 288
+C4 225 443
+C5 336 573
+D1 438 48
+D2 438 174
+D3 438 335
+D4 438 473
+D5 438 573
+E4 575 475
+E5 684 493
+F1 611 48
+F2 600 173
+F5 701 573
+G1 797 48
+G2 797 150
+G2b 770 151
+G4 797 382
+G4b 770 382
+G5 797 573
+Reading in connections...
+A1 2 B1 A2
+A2 3 A1 B2 A4
+A4 3 A2 B5 A5
+A5 2 A4 C5
+B1 3 A1 D1 B2
+B2 4 C2 C3 A2 B1
+B3 1 B4
+B4 3 B3 B5 C4
+B5 3 A4 C5 B4
+C2 3 D2 B2 C3
+C3 3 C2 B2 C4
+C4 3 B4 C3 D4
+C5 3 D5 B5 A5
+D1 3 B1 F1 D2
+D2 3 C2 D1 F2
+D3 1 D4
+D4 4 D3 C4 E4 D5
+D5 3 C5 D4 F5
+E4 3 D4 E5 F2
+F1 3 F2 D1 G1
+F2 4 F1 D2 G2b E4
+F5 3 E5 G5 D5
+G1 2 G2 F1
+G2 3 G1 G2b G4
+G2b 3 G2 F2 G4b
+G4 3 G4b G2 G5
+G4b 3 G4 G2b E5
+G5 2 F5 G4
+E5 3 F5 E4 G4b
+------------------------
+City Name: A5
+x: 30 y: 573
+Connections: A4 C5
+------------------------
+City Name: A4
+x: 30 y: 483
+Connections: A2 B5 A5
+------------------------
+City Name: A2
+x: 30 y: 178
+Connections: A1 B2 A4
+------------------------
+City Name: A1
+x: 30 y: 48
+Connections: B1 A2
+------------------------
+City Name: B1
+x: 207 y: 48
+Connections: A1 D1 B2
+------------------------
+City Name: B2
+x: 207 y: 161
+Connections: C2 C3 A2 B1
+------------------------
+City Name: B3
+x: 144 y: 339
+Connections: B4
+------------------------
+City Name: B4
+x: 129 y: 443
+Connections: B3 B5 C4
+------------------------
+City Name: B5
+x: 127 y: 479
+Connections: A4 C5 B4
+------------------------
+City Name: C2
+x: 258 y: 162
+Connections: D2 B2 C3
+------------------------
+City Name: C3
+x: 240 y: 288
+Connections: C2 B2 C4
+------------------------
+City Name: C4
+x: 225 y: 443
+Connections: B4 C3 D4
+------------------------
+City Name: C5
+x: 336 y: 573
+Connections: D5 B5 A5
+------------------------
+City Name: D1
+x: 438 y: 48
+Connections: B1 F1 D2
+------------------------
+City Name: D2
+x: 438 y: 174
+Connections: C2 D1 F2
+------------------------
+City Name: D3
+x: 438 y: 335
+Connections: D4
+------------------------
+City Name: D4
+x: 438 y: 473
+Connections: D3 C4 E4 D5
+------------------------
+City Name: D5
+x: 438 y: 573
+Connections: C5 D4 F5
+------------------------
+City Name: E4
+x: 575 y: 475
+Connections: D4 E5 F2
+------------------------
+City Name: E5
+x: 684 y: 493
+Connections: F5 E4 G4b
+------------------------
+City Name: F1
+x: 611 y: 48
+Connections: F2 D1 G1
+------------------------
+City Name: F2
+x: 600 y: 173
+Connections: F1 D2 G2b E4
+------------------------
+City Name: F5
+x: 701 y: 573
+Connections: E5 G5 D5
+------------------------
+City Name: G1
+x: 797 y: 48
+Connections: G2 F1
+------------------------
+City Name: G2
+x: 797 y: 150
+Connections: G1 G2b G4
+------------------------
+City Name: G2b
+x: 770 y: 151
+Connections: G2 F2 G4b
+------------------------
+City Name: G4
+x: 797 y: 382
+Connections: G4b G2 G5
+------------------------
+City Name: G4b
+x: 770 y: 382
+Connections: G4 G2b E5
+------------------------
+City Name: G5
+x: 797 y: 573
+Connections: F5 G4
