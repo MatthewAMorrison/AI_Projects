@@ -15,6 +15,11 @@ namespace AStar
         /* Output File */
         public static TextWriter TR_output = File.CreateText("output.txt");
 
+        /* Origin, Destination and Avoiding Cities */
+        public static string origin = null;
+        public static string destination = null;
+        public static List<string> excludeCities = new List<string>();
+
         static void Main(string[] args)
         {
             /* Read in Files */
@@ -35,6 +40,9 @@ namespace AStar
 
             /* Initialize Best City */
             City Best = new City();
+
+            /* Get User Input */
+            getUserInput();
 
             //Read in files
             // Create List Array[] for cities
@@ -202,6 +210,112 @@ namespace AStar
                 allCities[place].addConnection(tempCity2);
                 TR_output.WriteLine(tempCity2.Name);
             }
+        }
+
+        /***************************************
+        * Function Name: getUserInput()
+        * Pre-Conditions: void
+        * Post-Condition: void
+        * 
+        * Reads user input into data
+        * *************************************/
+        public static void getUserInput()
+        {
+            bool originCheck = false;
+            bool destinationCheck = false;
+            bool excludeCheck = false;
+
+            while (!originCheck)
+            {
+                Console.WriteLine("Input Origin City");
+                origin = Console.ReadLine();
+
+                for (int i = 0; i < allCities.Count; i++)
+                {
+                    if (allCities[i].Name.CompareTo(origin) == 0)
+                    {
+                        originCheck = true;
+                    }
+                }
+                if (!originCheck)
+                {
+                    Console.WriteLine(origin + " is not a valid city");
+                }
+            }
+
+            while (!destinationCheck)
+            {
+                Console.WriteLine("Input Destination City");
+                destination = Console.ReadLine();
+
+                for (int i = 0; i < allCities.Count; i++)
+                {
+                    if (allCities[i].Name.CompareTo(destination) == 0)
+                    {
+                        destinationCheck = true;
+                    }
+                }
+                if (!destinationCheck)
+                {
+                    Console.WriteLine(destination + " is not a valid city");
+                }
+            }
+
+            while (!excludeCheck)
+            {
+                Console.WriteLine("Input Excluded Cities or END");
+                string tempExclude = Console.ReadLine();
+
+                bool validCheck = false;
+
+                if (tempExclude.CompareTo("END") == 0)
+                {
+                    excludeCheck = true;
+                }
+                else
+                {
+                    for (int i = 0; i < allCities.Count; i++)
+                    {
+                        if (tempExclude.CompareTo(origin) == 0)
+                        {
+                            Console.WriteLine(tempExclude + " is your selected origin city");
+                            break;
+                        }
+                        else if (tempExclude.CompareTo(destination) == 0)
+                        {
+                            Console.WriteLine(tempExclude + " is your selected destination city");
+                            break;
+                        }
+                        else if (allCities[i].Name.CompareTo(tempExclude) == 0)
+                        {
+                            validCheck = true;
+                            break;
+                        }
+                    }
+                    if (!validCheck)
+                    {
+                        Console.WriteLine(tempExclude + " is not a valid city");
+                    }
+                    else
+                    {
+                        excludeCities.Add(tempExclude);
+                    }
+                }
+            }
+
+            TR_output.WriteLine("----------------------------------");
+            TR_output.WriteLine("User Inputs:");
+            TR_output.WriteLine("Origin: " + origin);
+            TR_output.WriteLine("Destination: " + destination);
+
+            TR_output.Write("Excluded Cities:");
+
+            for (int i = 0; i < excludeCities.Count; i++)
+            {
+                TR_output.Write(" " + excludeCities[i]);
+            }
+            TR_output.WriteLine();
+            TR_output.WriteLine("----------------------------------");
         }
 
         /***************************************

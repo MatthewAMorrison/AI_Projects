@@ -175,3 +175,9 @@ Connections: G4 G2b E5
 City Name: G5
 x: 797 y: 573
 Connections: F5 G4
+----------------------------------
+User Inputs:
+Origin: A1
+Destination: A2
+Excluded Cities: A4 A5
+----------------------------------
