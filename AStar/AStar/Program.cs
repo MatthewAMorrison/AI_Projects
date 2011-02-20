@@ -67,7 +67,7 @@ namespace AStar
             /* while(Best != end && ListPossible != empty){ */
             while (Best.Name.CompareTo(destination) != 0 && possibleCities.Count != 0)
             {
-                Best = ComparePossibilities();
+                Best = ComparePossibilities(estimate);
                 //Best <- ComparePossible
                 //RemoveFromPossible(Best)
                 //List <- ListPossible(Best)
@@ -436,15 +436,14 @@ namespace AStar
 
         /***************************************
          * Function Name: ComparePossibilities
-         * Pre-Conditions: List<City> Possible
-         *                 int Distance
+         * Pre-Conditions: int Distance
          * Post-Condition: City
          * 
          * Determines the best possible city for the
          * A* algorithm to choose. Removes that city
          * from the list, and returns the best city
          * *************************************/
-        public static City ComparePossibilities()
+        public static City ComparePossibilities(int estimate)
         {
             int place = 0;
             for (int i = 0; i < possibleCities.Count; i++)
