@@ -38,5 +38,15 @@ namespace AStar
         {
             connections.Add(theCity);
         }
+
+        public int getConnectionTotal()
+        {
+            return connections.Count;
+        }
+
+        public string getConnectionName(int i)
+        {
+            return connections[i].Name;
+        }
     }
 }

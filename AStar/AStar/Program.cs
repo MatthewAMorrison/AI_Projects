@@ -30,6 +30,9 @@ namespace AStar
             /* Get Connections */
             getConnections(TR_connections);
 
+            /* Print City Information to the User */
+            printCityInfo();
+
             /* Initialize Best City */
             City Best = new City();
 
@@ -212,6 +215,30 @@ namespace AStar
         public double Distance(City A, City B)
         {
             return Math.Sqrt((B.x - A.x) ^ 2 + (B.y - A.y) ^ 2);
+        }
+
+        /***************************************
+        * Function Name: printCityInfo
+        * Pre-Conditions: City A, City B
+        * Post-Condition: Double
+        * 
+        * Return the numerical distance between
+        * City A and City B as a double
+        * *************************************/
+        public static void printCityInfo()
+        {
+            for (int i = 0; i < allCities.Count; i++)
+            {
+                TR_output.WriteLine("------------------------");
+                TR_output.WriteLine("City Name: " + allCities[i].Name);
+                TR_output.WriteLine("x: " + allCities[i].x + " y: " + allCities[i].y);
+                TR_output.Write("Connections:");
+                for (int j = 0; j < allCities[i].getConnectionTotal(); j++)
+                {
+                    TR_output.Write(" " + allCities[i].getConnectionName(j));
+                }
+                TR_output.WriteLine();
+            }
         }
 
         /***************************************
