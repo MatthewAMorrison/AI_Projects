@@ -736,5 +736,28 @@ namespace AStar
             }
             return (int)Distance(Best, allCities[i]);
         }
+
+        /***************************************
+         * Function Name: Calculate Estimate
+         * Pre-Conditions: City theCity
+         *                 int Distance
+         * Post-Condition: int
+         * 
+         * Calculates the Estimate between the passed
+         * City and the 
+         * *************************************/
+        public static int CalculateEstimate(City theCity)
+        {
+            int i = 0;
+            for (i = 0; i < allCities.Count; i++)
+            {
+                if (allCities[i].Name.CompareTo(destination) == 0)
+                {
+                    break;
+                }
+            }
+
+            return (int)Distance(theCity, allCities[i]);
+        }
     }
 }
