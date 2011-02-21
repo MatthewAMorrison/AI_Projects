@@ -12,8 +12,8 @@ namespace AStar
         public int x { get; set; }
         public int y { get; set; }
         List<City> connections = new List<City>();
-        bool prevVisited { get; set; }
-        City prevCity { get; set; }
+        public bool prevVisited { get; set; }
+        public City prevCity { get; set; }
 
 
         //Methods

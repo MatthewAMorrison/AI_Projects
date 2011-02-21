@@ -41,16 +41,25 @@ namespace AStar
             /* Print City Information to the User */
             printCityInfo();
 
-            /* Initialize Best City */
-            City Best = new City();
-            Best.Name = "";
-
             /* Read In: Start, End, Exclude */
             getUserInput();
 
             /* Initialize Possible List */
             initializePossibleList();
 
+            /* Initialize Best City */
+            City Best = new City();
+            int originPlace = 0;
+            for (int i = 0; i < allCities.Count; i++)
+            {
+                if (allCities[i].Name.CompareTo(origin) == 0)
+                {
+                    originPlace = i;
+                }
+            }
+            Best = allCities[originPlace];
+
+            /* Get Initial Estimate */
             int estimate = 0;
             for (int k = 0; k < allCities.Count; k++)
             {
@@ -67,14 +76,19 @@ namespace AStar
             /* while(Best != end && ListPossible != empty){ */
             while (Best.Name.CompareTo(destination) != 0 && possibleCities.Count != 0)
             {
-                Best = ComparePossibilities(estimate);
-                //Best <- ComparePossible
+                /* Best <- ComparePossible */
+                City previousCity = Best;
+                Best = ComparePossibilities(Best, estimate);
                 //RemoveFromPossible(Best)
+                RemoveFromPossible(Best);
                 //List <- ListPossible(Best)
+
                 //Update Best.previousCity
                 //Update Best.prevVisited
-                Best.Name = destination; // This is here to break the while loop until we finish the algorithm
+                //Best.Name = destination; // This is here to break the while loop until we finish the algorithm
             }
+
+            TR_output.WriteLine("Destination Found: " + Best.Name);
 
             TR_output.Close();
            
@@ -436,20 +450,39 @@ namespace AStar
 
         /***************************************
          * Function Name: ComparePossibilities
-         * Pre-Conditions: int Distance
+         * Pre-Conditions: City Best, int Distance
          * Post-Condition: City
          * 
          * Determines the best possible city for the
          * A* algorithm to choose. Removes that city
          * from the list, and returns the best city
          * *************************************/
-        public static City ComparePossibilities(int estimate)
+        public static City ComparePossibilities(City Best, int estimate)
         {
-            int place = 0;
+            int place = -1;
+            int curEstimate = estimate;
             for (int i = 0; i < possibleCities.Count; i++)
             {
+                Console.WriteLine(i);
+                int tempEstimate = (int)Distance(Best, possibleCities[i]);
+
+                /* Is not a possibility if it is greater than estimate*/
+                if (tempEstimate <= curEstimate)
+                {
+                    Console.WriteLine(possibleCities[i].Name + ", HERE!");
+                    curEstimate = tempEstimate;
+                    place = i;
+                }
             }
-            return new City();
+
+            if (place != -1)
+            {
+                return possibleCities[place];
+            }
+            else
+            {
+                return Best;
+            }
         }
 
         /***************************************
@@ -473,6 +506,25 @@ namespace AStar
             }
 
             return (int)Distance(theCity, allCities[i]);
+        }
+
+        /***************************************
+        * Function Name: RemoveFromPossible
+        * Pre-Conditions: City Best
+        * Post-Condition: void
+        * 
+        * Removes the Estimate from possible
+        * *************************************/
+        public static void RemoveFromPossible(City Best)
+        {
+            for (int i = 0; i < possibleCities.Count; i++)
+            {
+                if (Best.Name.CompareTo(possibleCities[i].Name) == 0)
+                {
+                    possibleCities.Remove(Best);
+                    break;
+                }
+            }
         }
     }
 }
