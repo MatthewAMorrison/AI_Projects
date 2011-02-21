@@ -177,18 +177,29 @@ x: 797 y: 573
 Connections: F5 G4
 ---------------------------------
 Input Origin City
+Q1
+Q1 is not a valid city
+Input Origin City
 A1
+Input Destination City
+A1
+A1 is the origin city
+A1 is not a valid city
 Input Destination City
 A2
 Input Excluded Cities or END
 B1
+Input Excluded Cities or END
+A4
+Input Excluded Cities or END
+A5
 Input Excluded Cities or END
 END
 ----------------------------------
 User Inputs:
 Origin: A1
 Destination: A2
-Excluded Cities: B1
+Excluded Cities: B1 A4 A5
 ----------------------------------
 Initial Possible Cities: 
 A2 30 178

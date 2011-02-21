@@ -16,7 +16,7 @@ namespace AStar
         public static List<City> possibleCities = new List<City>();
 
         /* Output File */
-        public static TextWriter TR_output = File.CreateText("output.txt");
+        public static TextWriter TR_output = File.CreateText("../../../../output.txt");
 
         /* Origin, Destination and Avoiding Cities */
         public static string origin = null;
@@ -26,8 +26,8 @@ namespace AStar
         static void Main(string[] args)
         {
             /* Read in Files */
-            TextReader TR_locations = File.OpenText("locations.txt");
-            TextReader TR_connections = File.OpenText("connections.txt");
+            TextReader TR_locations = File.OpenText("../../../../locations.txt");
+            TextReader TR_connections = File.OpenText("../../../../connections.txt");
 
 
             TR_output.WriteLine("Welcome to the Solver");
