@@ -14,6 +14,7 @@ namespace AStar
         List<City> connections = new List<City>();
         public bool prevVisited { get; set; }
         public City prevCity { get; set; }
+        public int distToStart { get; set; }
 
 
         //Methods

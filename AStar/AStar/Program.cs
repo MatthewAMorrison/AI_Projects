@@ -60,6 +60,8 @@ namespace AStar
                     allCities[i].prevVisited = true;
                     allCities[i].prevCity = null;
                     originPlace = i;
+                    allCities[i].distToStart = 0;
+                    
                 }
             }
             Best = allCities[originPlace];
@@ -83,9 +85,13 @@ namespace AStar
             {
                 /* Best <- ComparePossible */
                 City previousCity = Best;
-                Best = ComparePossibilities(previousCity, estimate);
                 //RemoveFromPossible(Best)
-                RemoveFromPossible(Best);
+                RemoveFromPossible(previousCity);
+                //Update list of possibles [while doing this, set prevCity]
+                updatePossibleList(previousCity.Name);
+                //Choose the next city in the path
+                Best = ComparePossibilities(previousCity, estimate);
+               
                 //List <- ListPossible(Best)
                 Best.prevCity = previousCity;
                 Best.prevVisited = true;
@@ -423,6 +429,85 @@ namespace AStar
                     City tempCity = allCities[originNumber].getConnection(j);
                     TR_output.WriteLine(tempCity.Name + " " + tempCity.x + " " + tempCity.y);
                     possibleCities.Add(tempCity);
+                    tempCity.prevCity = allCities[originNumber];
+                    tempCity.distToStart = 0 + (int)Distance(allCities[originNumber], tempCity);
+                }
+            }
+        }
+
+
+        /***************************************
+        * Function Name: updatePossibleList
+        * Pre-Conditions: String cityName
+        * Post-Condition: void
+        * 
+        * Updates the possible city list
+        * based on user input
+        * *************************************/
+        public static void updatePossibleList(String cityName)
+        {
+            TR_output.WriteLine("Update Possible Cities: ");
+            int index = 0;
+            City current;
+            bool check = true;
+            bool updated = false;
+
+            for (int i = 0; i < allCities.Count; i++)
+            {
+                if (allCities[i].Name.CompareTo(cityName) == 0)
+                {
+                    index = i;
+                    break;
+                }
+            }
+
+            current = allCities[index];
+
+            for (int j = 0; j < current.getConnectionTotal(); j++)
+            {
+                check = true;
+                updated = false;
+                for (int k = 0; k < excludeCities.Count; k++)
+                {
+
+                    if (current.getConnectionName(j).CompareTo(excludeCities[k]) == 0)
+                    {
+                        check = false;
+                        break;
+                    }
+
+                }
+
+                City tempCity = current.getConnection(j);
+                if (check)
+                {
+
+                   
+                    for (int z = 0; z < possibleCities.Count; z++)
+                    {
+                        //Check to see if tempCity is already in list
+                        if (tempCity.Name.CompareTo(possibleCities[z].Name) == 0)
+                        {
+                            //If it is, update value if distance is less
+                            if(tempCity.distToStart > (current.distToStart + (int) Distance(current, tempCity)))
+                            {
+                                tempCity.distToStart = current.distToStart + (int)Distance(current, tempCity);
+                                tempCity.prevCity = current;
+                                updated = true;
+                                TR_output.WriteLine("Updated:" + tempCity.Name + " " + tempCity.x + " " + tempCity.y);
+                                break;
+                            }
+                        }
+                    }
+
+                    //If it wasnt in the list, then nothing was updated and we should add it to the list.
+                    if (!updated)
+                    {
+                        TR_output.WriteLine(tempCity.Name + " " + tempCity.x + " " + tempCity.y);
+                        possibleCities.Add(tempCity);
+                        tempCity.prevCity = current;
+                        tempCity.distToStart = current.distToStart + (int)Distance(current, tempCity);
+                    }
                 }
             }
         }
