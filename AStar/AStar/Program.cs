@@ -78,13 +78,17 @@ namespace AStar
             {
                 /* Best <- ComparePossible */
                 City previousCity = Best;
-                Best = ComparePossibilities(Best, estimate);
+                Best = ComparePossibilities(previousCity, estimate);
                 //RemoveFromPossible(Best)
                 RemoveFromPossible(Best);
-                //List <- ListPossible(Best
+                //List <- ListPossible(Best)
+                Best.prevCity = previousCity;
+                Best.prevVisited = true;
 
                 //Update Best.previousCity
                 //Update Best.prevVisited
+                UpdatePrevious(previousCity);
+
                 //Best.Name = destination; // This is here to break the while loop until we finish the algorithm
             }
 
@@ -521,6 +525,24 @@ namespace AStar
                 if (Best.Name.CompareTo(possibleCities[i].Name) == 0)
                 {
                     possibleCities.Remove(Best);
+                    break;
+                }
+            }
+        }
+
+        /***
+         * Function: UpdatePrevious
+         * PreCondition: City Old
+         * PostCondition: void
+         * */
+        public static void UpdatePrevious(City toUpdate)
+        {
+            for (int i = 0; i < allCities.Count; i++)
+            {
+                if (allCities[i].Name.CompareTo(toUpdate.Name) == 0)
+                {
+                    allCities[i].prevCity = toUpdate.prevCity;
+                    allCities[i].prevVisited = toUpdate.prevVisited;
                     break;
                 }
             }
