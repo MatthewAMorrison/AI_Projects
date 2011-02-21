@@ -81,7 +81,7 @@ namespace AStar
                 Best = ComparePossibilities(Best, estimate);
                 //RemoveFromPossible(Best)
                 RemoveFromPossible(Best);
-                //List <- ListPossible(Best)
+                //List <- ListPossible(Best
 
                 //Update Best.previousCity
                 //Update Best.prevVisited
