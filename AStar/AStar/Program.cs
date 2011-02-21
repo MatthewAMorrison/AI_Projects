@@ -469,7 +469,6 @@ namespace AStar
                 /* Is not a possibility if it is greater than estimate*/
                 if (tempEstimate <= curEstimate)
                 {
-                    Console.WriteLine(possibleCities[i].Name + ", HERE!");
                     curEstimate = tempEstimate;
                     place = i;
                 }
