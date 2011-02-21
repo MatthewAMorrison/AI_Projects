@@ -1,5 +1,0 @@
-C:\Documents and Settings\Matt Morrison\My Documents\AIProject1\AStar\AStar\bin\Debug\AStar.exe
-C:\Documents and Settings\Matt Morrison\My Documents\AIProject1\AStar\AStar\bin\Debug\AStar.pdb
-C:\Documents and Settings\Matt Morrison\My Documents\AIProject1\AStar\AStar\obj\x86\Debug\ResolveAssemblyReference.cache
-C:\Documents and Settings\Matt Morrison\My Documents\AIProject1\AStar\AStar\obj\x86\Debug\AStar.exe
-C:\Documents and Settings\Matt Morrison\My Documents\AIProject1\AStar\AStar\obj\x86\Debug\AStar.pdb
