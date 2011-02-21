@@ -81,7 +81,7 @@ namespace AStar
             TR_output.WriteLine("Initial Estimate: " + estimate);
 
             /* while(Best != end && ListPossible != empty){ */
-            while (Best.Name.CompareTo(destination) != 0 && possibleCities.Count != 0)
+            while ( Best.Name.CompareTo(destination) != 0 && possibleCities.Count != 0)
             {
                 /* Best <- ComparePossible */
                 City previousCity = Best;
@@ -90,20 +90,21 @@ namespace AStar
                 //Update list of possibles [while doing this, set prevCity]
                 updatePossibleList(previousCity.Name);
                 //Choose the next city in the path
-                Best = ComparePossibilities(previousCity, estimate);
+                Best = ComparePossibilities();
                
                 //List <- ListPossible(Best)
+                //Update Local copy of Best
                 Best.prevCity = previousCity;
                 Best.prevVisited = true;
 
                 //Update Best.previousCity
                 //Update Best.prevVisited
-                UpdatePrevious(previousCity);
-
-                // Update estimate
-                estimate = updateEstimate(Best);
+                //Update Global Copy of Best (in allCities list)
+                UpdatePrevious(Best);
 
                 //Best.Name = destination; // This is here to break the while loop until we finish the algorithm
+
+                Console.WriteLine(Best.Name + ":p" + destination);
             }
 
             printPrevVisited();
@@ -551,62 +552,32 @@ namespace AStar
 
         /***************************************
          * Function Name: ComparePossibilities
-         * Pre-Conditions: City Best, int Distance
-         * Post-Condition: City
+         * Pre-Conditions:
+         * Post-Condition: City Best
          * 
          * Determines the best possible city for the
          * A* algorithm to choose. Removes that city
          * from the list, and returns the best city
          * *************************************/
-        public static City ComparePossibilities(City Best, int estimate)
+        public static City ComparePossibilities()
         {
-            int place = -1;
-            int curEstimate = estimate;
-            for (int i = 0; i < possibleCities.Count; i++)
-            {
-                Console.WriteLine(i);
-                int tempEstimate = (int)Distance(Best, possibleCities[i]);
+            City Best = null;
+            int currentMin = 1000000;
 
-                /* Is not a possibility if it is greater than estimate*/
-                if (tempEstimate <= curEstimate)
+            foreach (var n in possibleCities)
+            {
+                if ((n.distToStart + CalculateEstimate(n)) < currentMin)
                 {
-                    curEstimate = tempEstimate;
-                    place = i;
+                    currentMin = n.distToStart + CalculateEstimate(n);
+                    Best = n;
                 }
             }
 
-            if (place != -1)
-            {
-                return possibleCities[place];
-            }
-            else
-            {
-                return Best;
-            }
+            return Best;
+       
         }
 
-        /***************************************
-         * Function Name: Calculate Estimate
-         * Pre-Conditions: City theCity
-         *                 int Distance
-         * Post-Condition: int
-         * 
-         * Calculates the Estimate between the passed
-         * City and the 
-         * *************************************/
-        public static int CalculateEstimate(City theCity)
-        {
-            int i = 0;
-            for (i = 0; i < allCities.Count; i++)
-            {
-                if (allCities[i].Name.CompareTo(destination) == 0)
-                {
-                    break;
-                }
-            }
-
-            return (int)Distance(theCity, allCities[i]);
-        }
+        
 
         /***************************************
         * Function Name: RemoveFromPossible
@@ -717,25 +688,9 @@ namespace AStar
             TR_output.WriteLine();
         }
 
-        /***************************************
-        * Function: updateEstimate
-        * PreCondition: City Best
-        * PostCondition: int
-        * 
-        * Gets the distance between the current 
-        * Best and the destination
-        * *************************************/
-        public static int updateEstimate(City Best)
-        {
-            int i = 0;
-            for(i = 0; i < allCities.Count; i++)
-            {
-                if(allCities[i].Name.CompareTo(destination) == 0){
-                    break;
-                }
-            }
-            return (int)Distance(Best, allCities[i]);
-        }
+
+
+
 
         /***************************************
          * Function Name: Calculate Estimate
