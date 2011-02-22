@@ -538,11 +538,15 @@ namespace AStar
             }
         }
 
-        /***
+        /***************************************
          * Function: UpdatePrevious
          * PreCondition: City Old
          * PostCondition: void
-         * */
+         * 
+         * This takes in a city, and updates
+         * the prevVisited and prevCity for the
+         * corresponding city in allCities
+         * *************************************/
         public static void UpdatePrevious(City toUpdate)
         {
             for (int i = 0; i < allCities.Count; i++)
@@ -556,6 +560,14 @@ namespace AStar
             }
         }
 
+        /***************************************
+        * Function: printPrevVisited
+        * PreCondition: void
+        * PostCondition: void
+        * 
+        * Prints out all the cities that were
+        * visited by the algorithm
+        * *************************************/
         public static void printPrevVisited()
         {
             TR_output.WriteLine("---------------------");
