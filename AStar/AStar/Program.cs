@@ -48,7 +48,7 @@ namespace AStar
             getUserInput();
 
             /* Initialize Possible List */
-            initializePossibleList();
+            //initializePossibleList();
 
             /* Initialize Best City */
             City Best = new City();
@@ -86,13 +86,17 @@ namespace AStar
                 /* Best <- ComparePossible */
                 City previousCity = Best;
                 //RemoveFromPossible(Best)
+                Console.WriteLine("Entering RemoveFromPossible:"); 
                 RemoveFromPossible(previousCity);
                 //Update list of possibles [while doing this, set prevCity]
+                Console.WriteLine("Entering updatePossibleList:");
                 updatePossibleList(previousCity.Name);
                 //Choose the next city in the path
+                Console.WriteLine("Entering ComparePossibilities:");
                 Best = ComparePossibilities();
+                Console.WriteLine("Best is: " + Best.Name);
 
-                Console.WriteLine(Best.Name + " :p " + destination + " " + Best.Name.CompareTo(destination));
+                //Console.WriteLine(Best.Name + " :p " + destination + " " + Best.Name.CompareTo(destination));
             }
 
             printPrevVisited(Best);
@@ -438,6 +442,8 @@ namespace AStar
         * *************************************/
         public static void updatePossibleList(String cityName)
         {
+            Console.WriteLine("Entered updatePossibleList.  Previous City was " + cityName);
+            Console.ReadLine();
             TR_output.WriteLine("Update Possible Cities: ");
             int index = 0;
             City current;
@@ -470,9 +476,15 @@ namespace AStar
 
                 }
 
+               
                 City tempCity = current.getConnection(j);
+
+                Console.WriteLine("Attempting to add " + tempCity.Name);
+                Console.ReadLine();
                 if (check && !tempCity.prevVisited)
                 {
+                    Console.WriteLine(tempCity.Name + " is not excluded and not previously visited.");
+                    Console.ReadLine();
 
                    
                     for (int z = 0; z < possibleCities.Count; z++)
@@ -480,12 +492,17 @@ namespace AStar
                         //Check to see if tempCity is already in list
                         if (tempCity.Name.CompareTo(possibleCities[z].Name) == 0)
                         {
+
+                            Console.WriteLine(tempCity.Name + " is already in the list.");
+                            Console.ReadLine();
                             //If it is, update value if distance is less
                             if(tempCity.distToStart > (current.distToStart + (int) Distance(current, tempCity)))
                             {
                                 tempCity.distToStart = current.distToStart + (int)Distance(current, tempCity);
                                 tempCity.prevCity = current;
                                 updated = true;
+                                Console.WriteLine("Updating " + tempCity.Name);
+                                Console.ReadLine();
                                 TR_output.WriteLine("Updated:" + tempCity.Name + " " + tempCity.prevCity.Name);
                                 break;
                             }
@@ -495,6 +512,9 @@ namespace AStar
                     //If it wasnt in the list, then nothing was updated and we should add it to the list.
                     if (!updated)
                     {
+
+                        Console.WriteLine(tempCity.Name + " was not in the list");
+                        Console.ReadLine();
                         TR_output.WriteLine(tempCity.Name + " " + tempCity.x + " " + tempCity.y);
 
                         bool notinPossible = true;
@@ -502,6 +522,12 @@ namespace AStar
                         {
                             if (tempCity.Name.CompareTo(n.Name) == 0)
                             {
+
+                                Console.WriteLine("Updating the links for " + tempCity.Name);
+                                Console.ReadLine();
+                                //tempCity.prevCity = current;
+                                //tempCity.distToStart = current.distToStart + (int)Distance(current, tempCity); 
+ 
                                 n.prevCity = tempCity.prevCity;
                                 n.prevVisited = true;
                                 n.distToStart = tempCity.distToStart;
@@ -512,11 +538,14 @@ namespace AStar
 
                         if (notinPossible)
                         {
+                            Console.WriteLine(tempCity.Name + " is not in list and is now being added.");
+                            Console.ReadLine();
                             possibleCities.Add(tempCity);
                         }
 
 
 
+                        //put back here
                         tempCity.prevCity = current;
                         tempCity.distToStart = current.distToStart + (int)Distance(current, tempCity);
 
@@ -600,17 +629,22 @@ namespace AStar
         * *************************************/
         public static void RemoveFromPossible(City Best)
         {
-            Console.WriteLine("Hey Oh! " + possibleCities.Count);
+            Console.WriteLine("Inside RemoveFromPossible! Possible cities count is " + possibleCities.Count);
+            Console.ReadLine();
             for (int i = 0; i < possibleCities.Count; i++)
             {
-                Console.WriteLine(possibleCities[i].Name + " " + Best.Name);
+                //Console.WriteLine(possibleCities[i].Name + " is in the list of possible");
                 if (Best.Name.CompareTo(possibleCities[i].Name) == 0)
                 {
                     possibleCities.Remove(possibleCities[i]);
-                    Console.WriteLine("Hey 2! " + possibleCities.Count);
+                    Console.WriteLine("Removing " + possibleCities.Count);
+                    Console.ReadLine();
                     break;
                 }
             }
+
+            foreach (var c in possibleCities) Console.WriteLine(c.Name + " is in the list of possible");
+            Console.ReadLine();
         }
 
         /***************************************
@@ -624,12 +658,19 @@ namespace AStar
          * *************************************/
         public static void UpdatePrevious(City toUpdate)
         {
+
+            Console.WriteLine("Entered UpdatePrevious!  Passed " + toUpdate.Name);
+            Console.ReadLine();
+
             for (int i = 0; i < allCities.Count; i++)
             {
                 if (allCities[i].Name.CompareTo(toUpdate.Name) == 0)
                 {
                     allCities[i].prevCity = toUpdate.prevCity;
                     allCities[i].prevVisited = toUpdate.prevVisited;
+
+                    Console.WriteLine("Altered " + allCities[i].Name);
+                    Console.ReadLine();
                     break;
                 }
             }
@@ -686,6 +727,7 @@ namespace AStar
             finalList.Add(destination);
 
             Console.WriteLine(finalList[0]);
+            Console.ReadLine();
 
             for (int i = 0; i < allCities.Count; i++)
             {
