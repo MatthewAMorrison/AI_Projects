@@ -1,4 +1,15 @@
-﻿using System;
+﻿/**********************************************
+ * Names: Matthew Morrison U56201087
+ *      : Jonathan Palmer  U33353822
+ * 
+ * File Name: City.cs
+ * Date: 21 FEB 2011
+ * 
+ * This file contains the class file for City
+ * data
+ * ********************************************/
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;

@@ -1,4 +1,15 @@
-﻿using System;
+﻿/**********************************************
+ * Names: Matthew Morrison U56201087
+ *      : Jonathan Palmer  U33353822
+ * 
+ * File Name: Program.cs
+ * Date: 21 FEB 2011
+ * 
+ * This file contains the main driver program
+ * for the Project for Artificial Intelligence
+ * ********************************************/
+
+using System;
 using System.IO;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,14 +37,22 @@ namespace AStar
         /* Final List to Print To User */
         public static List<string> finalList = new List<string>( );
 
+        /************************************
+         * Function: Main
+         * Pre-Conditions: string[] args
+         * Post-Conditions: void
+         * 
+         * This is the main driver function
+         * **********************************/
+
         static void Main(string[] args)
         {
             /* Read in Files */
-            TextReader TR_locations = File.OpenText("../../../../locations.txt");
-            TextReader TR_connections = File.OpenText("../../../../connections.txt");
+            TextReader TR_locations = File.OpenText("locations.txt");
+            TextReader TR_connections = File.OpenText("connections.txt");
 
 
-            TR_output.WriteLine("Welcome to the Solver");
+            Console.WriteLine("Welcome to the Solver");
 
             /* Get Locations */
             getLocations(TR_locations);
@@ -64,35 +83,23 @@ namespace AStar
                     
                 }
             }
+
+            /* Initialize "Best" as the origin city */
             Best = allCities[originPlace];
-
-            /* Get Initial Estimate */
-            int estimate = 0;
-            for (int k = 0; k < allCities.Count; k++)
-            {
-                if (allCities[k].Name.CompareTo(origin) == 0)
-                {
-                    estimate = CalculateEstimate(allCities[k]);
-                    break;
-                }
-            }
-
-            /* Print Initial Estimate to the User */
-            TR_output.WriteLine("Initial Estimate: " + estimate);
 
             /* while(Best != end && ListPossible != empty){ */
             while ( possibleCities.Count != 0 && Best.Name.CompareTo(destination) != 0 )
             {
                 /* Best <- ComparePossible */
                 City previousCity = Best;
-                //RemoveFromPossible(Best)
 
+                //Remove the best from list of possible cities
                 RemoveFromPossible(previousCity);
+
                 //Update list of possibles [while doing this, set prevCity]
-
                 updatePossibleList(previousCity.Name);
-                //Choose the next city in the path
 
+                //Choose the next city in the path
                 Best = ComparePossibilities();
 
             }
