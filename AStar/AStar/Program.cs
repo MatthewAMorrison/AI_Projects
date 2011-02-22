@@ -27,7 +27,7 @@ namespace AStar
         public static List<City> possibleCities = new List<City>();
 
         /* Output File */
-        public static TextWriter TR_output = File.CreateText("../../../../output.txt");
+        public static TextWriter TR_output = File.CreateText("output.txt");
 
         /* Origin, Destination and Avoiding Cities */
         public static string origin = null;
@@ -48,11 +48,13 @@ namespace AStar
         static void Main(string[] args)
         {
             /* Read in Files */
-            TextReader TR_locations = File.OpenText("locations.txt");
-            TextReader TR_connections = File.OpenText("connections.txt");
-
-
             Console.WriteLine("Welcome to the Solver");
+            Console.WriteLine("Enter Location of locations File:");
+            string loc_text = Console.ReadLine();
+            TextReader TR_locations = File.OpenText(loc_text);
+            Console.WriteLine("Enter Location of connections File:");
+            string conn_text = Console.ReadLine();
+            TextReader TR_connections = File.OpenText(conn_text);
 
             /* Get Locations */
             getLocations(TR_locations);
@@ -104,10 +106,10 @@ namespace AStar
 
             }
 
+            /* Print the list of all visited cities */
             printPrevVisited(Best);
 
-           
-
+            /* Print the List of Traveled Cities and distance traveled*/
             printList(Best);
 
 
@@ -333,8 +335,7 @@ namespace AStar
 
             while (!excludeCheck)
             {
-                Console.WriteLine("Input Excluded Cities or END");
-                TR_output.WriteLine("Input Excluded Cities or END");
+                Console.WriteLine("Input One Excluded City per line or END to solve");
                 string tempExclude = Console.ReadLine();
                 TR_output.WriteLine(tempExclude);
 
@@ -634,9 +635,6 @@ namespace AStar
 
                     possibleCities.Remove(possibleCities[i]);
 
-
-
-
                     break;
                 }
             }
@@ -709,6 +707,14 @@ namespace AStar
             TR_output.WriteLine();
         }
 
+        /***************************************
+        * Function: printList
+        * PreCondition: City
+        * PostCondition: void
+        * 
+        * Prints out all the cities that were
+        * travered by the solution
+        * *************************************/
         public static void printList(City destination)
         {
             Console.WriteLine("------------------------");
@@ -764,10 +770,6 @@ namespace AStar
 
             Console.WriteLine("Distance traveled: " + destination.distToStart);
         }
-
-
-
-
 
         /***************************************
          * Function Name: Calculate Estimate
