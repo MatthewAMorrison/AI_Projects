@@ -48,7 +48,7 @@ namespace AStar
             getUserInput();
 
             /* Initialize Possible List */
-            //initializePossibleList();
+            initializePossibleList();
 
             /* Initialize Best City */
             City Best = new City();
@@ -81,7 +81,7 @@ namespace AStar
             TR_output.WriteLine("Initial Estimate: " + estimate);
 
             /* while(Best != end && ListPossible != empty){ */
-            while ( Best.Name.CompareTo(destination) != 0 && possibleCities.Count != 0)
+            while ( possibleCities.Count != 0 && Best.Name.CompareTo(destination) != 0 )
             {
                 /* Best <- ComparePossible */
                 City previousCity = Best;
@@ -94,16 +94,18 @@ namespace AStar
                 //Choose the next city in the path
                 Console.WriteLine("Entering ComparePossibilities:");
                 Best = ComparePossibilities();
-                Console.WriteLine("Best is: " + Best.Name);
+                //Console.WriteLine("Best is: " + Best.Name);
 
                 //Console.WriteLine(Best.Name + " :p " + destination + " " + Best.Name.CompareTo(destination));
             }
 
             printPrevVisited(Best);
 
-            TR_output.WriteLine("Destination Found: " + Best.Name);
+           
 
-            printList(Best.Name);
+            printList(Best);
+
+
 
             Console.Write("Press ENTER to finish program");
             string temp = Console.ReadLine();
@@ -480,6 +482,7 @@ namespace AStar
                 City tempCity = current.getConnection(j);
 
                 Console.WriteLine("Attempting to add " + tempCity.Name);
+                Console.WriteLine(tempCity.Name + " prevVisited == " + tempCity.prevVisited);
                 Console.ReadLine();
                 if (check && !tempCity.prevVisited)
                 {
@@ -524,6 +527,8 @@ namespace AStar
                             {
 
                                 Console.WriteLine("Updating the links for " + tempCity.Name);
+                                Console.WriteLine(tempCity.Name + "'s previous city is now: " + tempCity.prevCity.Name);
+                                
                                 Console.ReadLine();
                                 //tempCity.prevCity = current;
                                 //tempCity.distToStart = current.distToStart + (int)Distance(current, tempCity); 
@@ -536,9 +541,14 @@ namespace AStar
                             }
                         }
 
+                        
+                        tempCity.prevCity = current;
+                        tempCity.distToStart = current.distToStart + (int)Distance(current, tempCity);
+
                         if (notinPossible)
                         {
                             Console.WriteLine(tempCity.Name + " is not in list and is now being added.");
+                            Console.WriteLine(tempCity.Name + "'s previous city is " + tempCity.prevCity.Name);
                             Console.ReadLine();
                             possibleCities.Add(tempCity);
                         }
@@ -546,8 +556,8 @@ namespace AStar
 
 
                         //put back here
-                        tempCity.prevCity = current;
-                        tempCity.distToStart = current.distToStart + (int)Distance(current, tempCity);
+                        //tempCity.prevCity = current;
+                        //tempCity.distToStart = current.distToStart + (int)Distance(current, tempCity);
 
                     }
                 }
@@ -636,12 +646,23 @@ namespace AStar
                 //Console.WriteLine(possibleCities[i].Name + " is in the list of possible");
                 if (Best.Name.CompareTo(possibleCities[i].Name) == 0)
                 {
+
+                    foreach (var c in allCities)
+                    {
+                        if (possibleCities[i].Name.CompareTo(c.Name) == 0) c.prevVisited = true;
+                    }
+
                     possibleCities.Remove(possibleCities[i]);
+
                     Console.WriteLine("Removing " + possibleCities.Count);
                     Console.ReadLine();
+
+
+
                     break;
                 }
             }
+
 
             foreach (var c in possibleCities) Console.WriteLine(c.Name + " is in the list of possible");
             Console.ReadLine();
@@ -691,18 +712,21 @@ namespace AStar
 
             TR_output.WriteLine("---------------------");
             TR_output.WriteLine("Visited Cities");
+            
             for (int i = 0; i < allCities.Count; i++)
             {
-                if (allCities[i].Name.CompareTo(Best.Name) == 0)
+                if (Best != null)
                 {
-                    allCities[i].prevVisited = true;
-                }
+                    if (allCities[i].Name.CompareTo(Best.Name) == 0)
+                    {
+                        allCities[i].prevVisited = true;
+                    }
 
-                if (allCities[i].Name.CompareTo(Best.prevCity.Name) == 0)
-                {
-                    allCities[i].prevVisited = true;
+                    if (allCities[i].Name.CompareTo(Best.prevCity.Name) == 0)
+                    {
+                        allCities[i].prevVisited = true;
+                    }
                 }
-
                 if (allCities[i].prevVisited)
                 {
                     TR_output.Write(allCities[i].Name+ " ");
@@ -711,20 +735,20 @@ namespace AStar
             TR_output.WriteLine();
         }
 
-        public static void printList(string destination)
+        public static void printList(City destination)
         {
 
             TR_output.WriteLine("------------------------");
             TR_output.WriteLine("Traversed Path:");
 
-            if (destination.CompareTo("") == 0 || destination == null)
+            if (destination == null || destination.Name.CompareTo("") == 0 )
             {
                 TR_output.WriteLine("No Possible Path Found");
                 return;
             }
 
             int place = 0;
-            finalList.Add(destination);
+            finalList.Add(destination.Name);
 
             Console.WriteLine(finalList[0]);
             Console.ReadLine();
