@@ -23,6 +23,8 @@ namespace AStar
         public static string destination = null;
         public static List<string> excludeCities = new List<string>();
 
+        public static List<string> finalList = new List<string>( );
+
         static void Main(string[] args)
         {
             /* Read in Files */
@@ -54,6 +56,8 @@ namespace AStar
             {
                 if (allCities[i].Name.CompareTo(origin) == 0)
                 {
+                    allCities[i].prevVisited = true;
+                    allCities[i].prevCity = null;
                     originPlace = i;
                 }
             }
@@ -92,7 +96,11 @@ namespace AStar
                 //Best.Name = destination; // This is here to break the while loop until we finish the algorithm
             }
 
+            printPrevVisited();
+
             TR_output.WriteLine("Destination Found: " + Best.Name);
+
+            printList(Best.Name);
 
             TR_output.Close();
            
@@ -546,6 +554,68 @@ namespace AStar
                     break;
                 }
             }
+        }
+
+        public static void printPrevVisited()
+        {
+            TR_output.WriteLine("---------------------");
+            TR_output.WriteLine("Visited Cities");
+            for (int i = 0; i < allCities.Count; i++)
+            {
+                if (allCities[i].prevVisited)
+                {
+                    TR_output.Write(allCities[i].Name+ " ");
+                }
+            }
+            TR_output.WriteLine();
+        }
+
+        public static void printList(string destination)
+        {
+
+            TR_output.WriteLine("------------------------");
+            TR_output.WriteLine("Traversed Path:");
+
+            if (destination.CompareTo("") == 0 || destination == null)
+            {
+                TR_output.WriteLine("No Possible Path Found");
+                return;
+            }
+
+            int place = 0;
+            finalList.Add(destination);
+
+            for (int i = 0; i < allCities.Count; i++)
+            {
+                if (allCities[i].Name.CompareTo(destination) == 0)
+                {
+                    place = i;
+                    break;
+                }
+            }
+
+            while (allCities[place].prevCity != null)
+            {
+
+                finalList.Add(allCities[place].prevCity.Name);
+
+                for (int j = 0; j < allCities.Count; j++)
+                {
+                    if (allCities[j].Name.CompareTo(allCities[place].prevCity.Name) == 0)
+                    {
+                        place = j;
+                        break;
+                    }
+                }
+            }
+
+            for (int k = finalList.Count - 1; k >= 0; k--)
+            {
+                TR_output.Write(finalList[k] + " ");
+            }
+            TR_output.WriteLine();
+
+            // finalList
         }
     }
 }
