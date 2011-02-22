@@ -505,9 +505,30 @@ namespace AStar
                     if (!updated)
                     {
                         TR_output.WriteLine(tempCity.Name + " " + tempCity.x + " " + tempCity.y);
-                        possibleCities.Add(tempCity);
+
+                        bool notinPossible = true;
+                        foreach (var n in possibleCities)
+                        {
+                            if (tempCity.Name.CompareTo(n.Name) == 0)
+                            {
+                                n.prevCity = tempCity.prevCity;
+                                n.prevVisited = tempCity.prevVisited;
+                                n.distToStart = tempCity.distToStart;
+                                notinPossible = false;
+                                break;
+                            }
+                        }
+
+                        if (notinPossible)
+                        {
+                            possibleCities.Add(tempCity);
+                        }
+
+
+
                         tempCity.prevCity = current;
                         tempCity.distToStart = current.distToStart + (int)Distance(current, tempCity);
+
                     }
                 }
             }
@@ -588,11 +609,13 @@ namespace AStar
         * *************************************/
         public static void RemoveFromPossible(City Best)
         {
+            Console.WriteLine("Hey Oh! " + possibleCities.Count);
             for (int i = 0; i < possibleCities.Count; i++)
             {
+                Console.WriteLine(possibleCities[i].Name + " " + Best.Name);
                 if (Best.Name.CompareTo(possibleCities[i].Name) == 0)
                 {
-                    possibleCities.Remove(Best);
+                    possibleCities.Remove(possibleCities[i]);
                     break;
                 }
             }
