@@ -23,6 +23,7 @@ namespace AStar
         public static string destination = null;
         public static List<string> excludeCities = new List<string>();
 
+        /* Final List to Print To User */
         public static List<string> finalList = new List<string>( );
 
         static void Main(string[] args)
@@ -92,6 +93,9 @@ namespace AStar
                 //Update Best.previousCity
                 //Update Best.prevVisited
                 UpdatePrevious(previousCity);
+
+                // Update estimate
+                estimate = updateEstimate(Best);
 
                 //Best.Name = destination; // This is here to break the while loop until we finish the algorithm
             }
@@ -626,8 +630,26 @@ namespace AStar
                 TR_output.Write(finalList[k] + " ");
             }
             TR_output.WriteLine();
+        }
 
-            // finalList
+        /***************************************
+        * Function: updateEstimate
+        * PreCondition: City Best
+        * PostCondition: int
+        * 
+        * Gets the distance between the current 
+        * Best and the destination
+        * *************************************/
+        public static int updateEstimate(City Best)
+        {
+            int i = 0;
+            for(i = 0; i < allCities.Count; i++)
+            {
+                if(allCities[i].Name.CompareTo(destination) == 0){
+                    break;
+                }
+            }
+            return (int)Distance(Best, allCities[i]);
         }
     }
 }
